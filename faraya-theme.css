@@ -1,4 +1,4 @@
-/* Faraya & Beyond — marketing theme (matches explorefarayanbeyond.com/faraya) */
+/* Beyond - marketing theme */
 :root{
   --accent:#0dcaf0;
   --accent-dark:#0aa8c9;
@@ -30,7 +30,7 @@ img{max-width:100%;display:block}
 /* header */
 .fb-header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
 .fb-header .container{height:4rem;display:flex;align-items:center;justify-content:space-between}
-.fb-logo img{height:28px;width:auto;object-fit:contain}
+.fb-logo img{height:42px;width:auto;object-fit:contain}
 .fb-nav{display:none;align-items:center;gap:1.5rem}
 .fb-nav a{font-size:.875rem;color:var(--text-muted);transition:color .15s}
 .fb-nav a:hover{color:var(--text)}
@@ -80,9 +80,9 @@ img{max-width:100%;display:block}
 .fb-video-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:3.25rem;height:3.25rem;border-radius:999px;background:rgba(255,255,255,.22);border:1.5px solid rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center}
 .fb-video-play svg{width:1.1rem;height:1.1rem;fill:#fff;margin-left:2px}
 
-/* footer / bottom nav */
-.fb-footer{border-top:1px solid var(--border);padding:2.5rem 0 6rem;background:var(--bg-alt)}
-.fb-footer p{color:var(--text-soft);font-size:.8rem;margin:0}
+/* bottom nav */
+main{display:block}
+@media (max-width:639px){main{padding-bottom:4.5rem}}
 .fb-bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--border)}
 .fb-bottom-nav .grid{display:grid;grid-template-columns:repeat(5,1fr);height:4rem}
 .fb-bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;font-size:.625rem;color:var(--text-soft)}
