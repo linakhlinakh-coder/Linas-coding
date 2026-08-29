@@ -205,21 +205,6 @@ function pk_track_groups_data() {
 	);
 }
 
-function pk_blog_categories_data() {
-	return array( 'Gen Z in the Workplace', 'Financial Literacy for Leaders', 'Career & Lifelong Learning', 'Blockchain in the Arab World', 'Training Center Strategy' );
-}
-
-function pk_seed_posts_data() {
-	return array(
-		array( 'cat' => 'Gen Z in the Workplace', 'title' => 'Why retention policies written for Millennials keep failing Gen Z hires', 'date' => '2026-03-02' ),
-		array( 'cat' => 'Financial Literacy for Leaders', 'title' => 'The quiet cost of outsourcing every financial decision', 'date' => '2026-02-09' ),
-		array( 'cat' => 'Blockchain in the Arab World', 'title' => 'Where blockchain actually fits in regional supply chains', 'date' => '2026-02-02' ),
-		array( 'cat' => 'Career & Lifelong Learning', 'title' => 'The careers Lebanese graduates are choosing instead', 'date' => '2026-01-12' ),
-		array( 'cat' => 'Training Center Strategy', 'title' => 'What a feasibility study should tell you before you sign a lease', 'date' => '2026-01-05' ),
-		array( 'cat' => 'Gen Z in the Workplace', 'title' => 'Onboarding for a generation that reads the room faster than you do', 'date' => '2025-12-08' ),
-	);
-}
-
 function pk_marquee_text() {
 	return 'Gen Z Strategy · Financial Literacy · Career Growth · Blockchain · Training Centers ·';
 }

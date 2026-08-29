@@ -32,9 +32,26 @@ function pk_render_settings_page() {
 		return;
 	}
 	$reseed_url = wp_nonce_url( add_query_arg( 'pk_reseed', '1' ), 'pk_reseed' );
+	$import_url = wp_nonce_url( add_query_arg( 'pk_import_legacy', '1' ), 'pk_import_legacy' );
+	$counts     = pk_legacy_import_counts();
 	?>
 	<div class="wrap">
 		<h1><?php esc_html_e( 'Pierre Khoury Theme Settings', 'pierre-khoury' ); ?></h1>
+
+		<?php if ( isset( $_GET['pk_legacy_imported'] ) ) : ?>
+			<div class="notice notice-success">
+				<p>
+					<?php
+					printf(
+						/* translators: 1: number of posts imported this batch, 2: number of posts skipped (already imported) */
+						esc_html__( 'Imported %1$d post(s) this batch (%2$d already existed and were skipped).', 'pierre-khoury' ),
+						(int) $_GET['pk_legacy_imported'],
+						(int) ( $_GET['pk_legacy_skipped'] ?? 0 )
+					);
+					?>
+				</p>
+			</div>
+		<?php endif; ?>
 		<form method="post" action="options.php">
 			<?php settings_fields( 'pk_settings' ); ?>
 			<table class="form-table" role="presentation">
@@ -67,6 +84,37 @@ function pk_render_settings_page() {
 		<h2><?php esc_html_e( 'Content', 'pierre-khoury' ); ?></h2>
 		<p><?php esc_html_e( 'The theme creates the Home, About, Services, 5 service pages, Track Record, Blog and Contact pages automatically the first time it is activated, using the approved copy. If a page seems to be missing, use the button below to fill in anything that did not get created — pages you already edited will not be touched.', 'pierre-khoury' ); ?></p>
 		<p><a href="<?php echo esc_url( $reseed_url ); ?>" class="button"><?php esc_html_e( 'Re-run content setup', 'pierre-khoury' ); ?></a></p>
+
+		<hr />
+		<h2><?php esc_html_e( 'Legacy blog archive', 'pierre-khoury' ); ?></h2>
+		<p>
+			<?php
+			printf(
+				/* translators: 1: number already imported, 2: total posts found in the bundled export */
+				esc_html__( 'Imports the real posts from the pierrekhoury.com export bundled with this theme (titles, content, dates, categories & tags — no images, those are added directly in the Media Library). Imported so far: %1$d of %2$d.', 'pierre-khoury' ),
+				(int) $counts['imported'],
+				(int) $counts['total']
+			);
+			?>
+		</p>
+		<?php if ( $counts['imported'] < $counts['total'] ) : ?>
+			<p>
+				<a href="<?php echo esc_url( $import_url ); ?>" class="button button-primary">
+					<?php esc_html_e( 'Import next batch of posts', 'pierre-khoury' ); ?>
+				</a>
+				<span class="description">
+					<?php
+					printf(
+						/* translators: %d: batch size */
+						esc_html__( ' Imports up to %d posts per click — click again to continue until all are imported. Safe to click repeatedly; already-imported posts are skipped.', 'pierre-khoury' ),
+						(int) PK_LEGACY_IMPORT_BATCH
+					);
+					?>
+				</span>
+			</p>
+		<?php else : ?>
+			<p><strong><?php esc_html_e( 'All legacy posts have been imported.', 'pierre-khoury' ); ?></strong></p>
+		<?php endif; ?>
 	</div>
 	<?php
 }

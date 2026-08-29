@@ -120,7 +120,7 @@ function pk_render_footer_bottom_block() {
 }
 
 function pk_render_blog_categories_block() {
-	$cats = get_categories( array( 'hide_empty' => false ) );
+	$cats = get_categories( array( 'hide_empty' => true ) );
 	if ( empty( $cats ) ) {
 		return '';
 	}
@@ -133,16 +133,30 @@ function pk_render_blog_categories_block() {
 }
 
 /**
- * Maps the theme's five blog categories to their matching service pillar,
- * so a single blog post can link to the relevant service page.
+ * Maps blog categories to their matching service pillar, so a single post
+ * can link to the relevant service page. Covers both the five categories
+ * from the original site design brief (for new posts going forward) and
+ * the real categories used across the imported pierrekhoury.com archive
+ * (inc/import-legacy-posts.php) — categories with no obvious service match
+ * (China Updates, Russia, Guest Writers, Uncategorized) are left unmapped,
+ * which just omits the "related service" card on that post.
  */
 function pk_category_to_pillar_map() {
 	return array(
+		// Original site-design categories.
 		'Gen Z in the Workplace'         => 'genz',
 		'Financial Literacy for Leaders' => 'finance',
 		'Career & Lifelong Learning'     => 'career',
 		'Blockchain in the Arab World'   => 'blockchain',
 		'Training Center Strategy'       => 'center',
+		// Real categories from the imported pierrekhoury.com archive.
+		'Economics'                      => 'finance',
+		'Finance'                        => 'finance',
+		'Lira'                           => 'finance',
+		'Business'                       => 'finance',
+		'Career & Education'             => 'career',
+		'Cryptocurrencies'               => 'blockchain',
+		'Blockchain'                     => 'blockchain',
 	);
 }
 

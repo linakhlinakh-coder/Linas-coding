@@ -344,41 +344,6 @@ function pk_seed_menus( $ids ) {
 	update_option( 'pk_menus_seeded', 1 );
 }
 
-function pk_seed_posts() {
-	if ( get_option( 'pk_posts_seeded' ) ) {
-		return;
-	}
-	foreach ( pk_seed_posts_data() as $p ) {
-		$term = term_exists( $p['cat'], 'category' );
-		$cat_id = $term ? (int) $term['term_id'] : 0;
-
-		$existing = get_posts(
-			array(
-				'post_type'      => 'post',
-				'title'          => $p['title'],
-				'post_status'    => 'any',
-				'posts_per_page' => 1,
-				'fields'         => 'ids',
-			)
-		);
-		if ( ! empty( $existing ) ) {
-			continue;
-		}
-
-		wp_insert_post(
-			array(
-				'post_title'   => $p['title'],
-				'post_content' => pk_html_block( '<p class="pk-lead">This is a placeholder article — replace this text with the real post before publishing.</p><p>' . esc_html( $p['title'] ) . ' — full article content goes here.</p>' ),
-				'post_status'  => 'publish',
-				'post_type'    => 'post',
-				'post_date'    => $p['date'] . ' 09:00:00',
-				'post_category'=> $cat_id ? array( $cat_id ) : array(),
-			)
-		);
-	}
-	update_option( 'pk_posts_seeded', 1 );
-}
-
 function pk_run_content_seed() {
 	if ( get_option( 'pk_content_seeded_v1' ) ) {
 		return;
@@ -390,8 +355,6 @@ function pk_run_content_seed() {
 	// the duration of the seed, then restore it exactly as core's own
 	// importers do.
 	kses_remove_filters();
-
-	pk_register_blog_categories();
 
 	$ids = array();
 
@@ -456,7 +419,6 @@ function pk_run_content_seed() {
 	}
 
 	pk_seed_menus( $ids );
-	pk_seed_posts();
 
 	kses_init_filters();
 

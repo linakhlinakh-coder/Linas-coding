@@ -12,6 +12,7 @@ define( 'PK_THEME_VERSION', '1.0.0' );
 require get_template_directory() . '/inc/seed-data.php';
 require get_template_directory() . '/inc/blocks.php';
 require get_template_directory() . '/inc/seed-content.php';
+require get_template_directory() . '/inc/import-legacy-posts.php';
 require get_template_directory() . '/inc/admin-settings.php';
 
 /**
@@ -71,18 +72,6 @@ function pk_assets() {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'pk_assets' );
-
-/**
- * Blog categories used by the Insights section. Called from
- * pk_run_content_seed() (inc/seed-content.php) on theme activation.
- */
-function pk_register_blog_categories() {
-	foreach ( pk_blog_categories_data() as $cat ) {
-		if ( ! term_exists( $cat, 'category' ) ) {
-			wp_insert_term( $cat, 'category' );
-		}
-	}
-}
 
 /**
  * Notice in wp-admin if Contact Form 7 isn't active yet — full setup
