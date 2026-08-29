@@ -1,0 +1,41 @@
+<!-- wp:template-part {"slug":"header","tagName":"div"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"default"}} -->
+<main class="wp-block-group">
+
+<!-- wp:group {"tagName":"section","className":"pk-page-header pk-post-header","layout":{"type":"default"}} -->
+<section class="wp-block-group pk-page-header pk-post-header">
+<!-- wp:pierre-khoury/cta-button {"target":"blog","label":"← Back to Blog","style":"outline-white","className":"pk-back-link"} /-->
+<!-- wp:post-terms {"term":"category","className":"pk-post-header__cat"} /-->
+<!-- wp:post-title {"level":1} /-->
+<!-- wp:group {"tagName":"div","className":"pk-post-meta-row","layout":{"type":"default"}} -->
+<div class="wp-block-group pk-post-meta-row">
+<!-- wp:paragraph -->
+<p>Pierre Khoury</p>
+<!-- /wp:paragraph -->
+<!-- wp:post-date /-->
+</div>
+<!-- /wp:group -->
+</section>
+<!-- /wp:group -->
+
+<!-- wp:columns {"className":"pk-section"} -->
+<div class="wp-block-columns pk-section">
+<!-- wp:column {"width":"66%"} -->
+<div class="wp-block-column pk-post-body" style="flex-basis:66%">
+<!-- wp:post-content /-->
+</div>
+<!-- /wp:column -->
+
+<!-- wp:column {"width":"34%"} -->
+<div class="wp-block-column" style="flex-basis:34%">
+<!-- wp:pierre-khoury/related-service /-->
+</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"div"} /-->

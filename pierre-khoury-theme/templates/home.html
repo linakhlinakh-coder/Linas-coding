@@ -1,0 +1,58 @@
+<!-- wp:template-part {"slug":"header","tagName":"div"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"default"}} -->
+<main class="wp-block-group">
+
+<!-- wp:html -->
+<section class="pk-page-header">
+	<span class="pk-page-header__crumb">Home / Blog</span>
+	<h1>Strategy and perspective from the front lines of regional change</h1>
+</section>
+<!-- /wp:html -->
+
+<!-- wp:group {"tagName":"div","className":"pk-section pk-section--tight pk-categories-wrap","layout":{"type":"default"}} -->
+<div class="wp-block-group pk-section pk-section--tight pk-categories-wrap">
+<!-- wp:pierre-khoury/blog-categories /-->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:query {"queryId":1,"query":{"perPage":9,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"className":"pk-section"} -->
+<div class="wp-block-query pk-section">
+<!-- wp:post-template {"className":"pk-post-grid"} -->
+<!-- wp:group {"tagName":"article","className":"pk-post-card","layout":{"type":"default"}} -->
+<div class="wp-block-group pk-post-card">
+<!-- wp:post-featured-image {"isLink":true,"className":"pk-post-card__thumb"} /-->
+<!-- wp:group {"tagName":"div","className":"pk-post-card__body","layout":{"type":"default"}} -->
+<div class="wp-block-group pk-post-card__body">
+<!-- wp:post-terms {"term":"category","className":"pk-post-card__cat"} /-->
+<!-- wp:post-title {"isLink":true,"level":3,"className":"pk-post-card__title"} /-->
+<!-- wp:group {"tagName":"div","className":"pk-post-card__meta","layout":{"type":"default"}} -->
+<div class="wp-block-group pk-post-card__meta">
+<!-- wp:post-date /-->
+<!-- wp:html --> · Read More →<!-- /wp:html -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"space-between"}} -->
+<!-- wp:query-pagination-previous /-->
+<!-- wp:query-pagination-numbers /-->
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination -->
+
+<!-- wp:query-no-results -->
+<!-- wp:paragraph -->
+<p>No posts published yet — check back soon.</p>
+<!-- /wp:paragraph -->
+<!-- /wp:query-no-results -->
+</div>
+<!-- /wp:query -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"div"} /-->
