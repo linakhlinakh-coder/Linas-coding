@@ -45,6 +45,17 @@ function pk_setup() {
 add_action( 'after_setup_theme', 'pk_setup' );
 
 /**
+ * Cache-busting version for a theme file: the file's own last-modified
+ * time, so every edit automatically invalidates browser/host/CDN caches
+ * without anyone needing to remember to bump a version number by hand.
+ * Falls back to PK_THEME_VERSION if the file can't be read for some reason.
+ */
+function pk_asset_version( $relative_path ) {
+	$file = get_template_directory() . $relative_path;
+	return file_exists( $file ) ? (string) filemtime( $file ) : PK_THEME_VERSION;
+}
+
+/**
  * Styles & scripts.
  */
 function pk_assets() {
@@ -58,16 +69,16 @@ function pk_assets() {
 		'pierre-khoury-style',
 		get_template_directory_uri() . '/assets/css/pierre-khoury.css',
 		array(),
-		PK_THEME_VERSION
+		pk_asset_version( '/assets/css/pierre-khoury.css' )
 	);
 	// style.css is the theme's identifying stylesheet; keep it enqueued too.
-	wp_enqueue_style( 'pierre-khoury-theme', get_stylesheet_uri(), array( 'pierre-khoury-style' ), PK_THEME_VERSION );
+	wp_enqueue_style( 'pierre-khoury-theme', get_stylesheet_uri(), array( 'pierre-khoury-style' ), pk_asset_version( '/style.css' ) );
 
 	wp_enqueue_script(
 		'pierre-khoury-navigation',
 		get_template_directory_uri() . '/assets/js/navigation.js',
 		array(),
-		PK_THEME_VERSION,
+		pk_asset_version( '/assets/js/navigation.js' ),
 		true
 	);
 }
