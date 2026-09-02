@@ -115,7 +115,11 @@ a:hover { color: var(--pk-accent-hover); }
 }
 .pk-logo-badge .pk-logo-dot { color: var(--pk-accent-light-3); }
 .pk-logo-word {
+	display: inline-flex;
+	align-items: center;
+	flex: none;
 	font-size: 19px;
+	line-height: 1;
 	font-weight: 500;
 	letter-spacing: -0.055em;
 	white-space: nowrap;
