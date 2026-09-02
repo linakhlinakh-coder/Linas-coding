@@ -47,21 +47,48 @@ colors and typography are ported 1:1 from that design.
    - **Contact Form 7 form ID**, once you've installed CF7 and created the
      form (see below).
 4. Install & activate the **Contact Form 7** plugin, then create a form under
-   **Contact → Contact Forms** with these fields (matching the design brief):
-   - Full Name (text, required)
-   - Organization / Institution (text, required)
-   - Email (email, required)
-   - Phone / WhatsApp (tel, required)
-   - Country / City (text, required)
-   - Service of Interest (select, required): Gen Z Workplace Expertise /
-     Financial Consulting & Training / Career Advisory & Lifelong Learning /
-     Blockchain Training / Training Center Launch & Advisory / Other — Not
-     Sure Yet
-   - Message (textarea, required)
-   - Submit button labeled "Get My Proposal"
+   **Contact → Contact Forms**. Replace the default "Form" tab content
+   (which is just CF7's generic Name/Email/Subject/Message starter) with
+   the brief's actual fields:
 
-   Copy the form's numeric ID (shown in the forms list, or in its shortcode
-   `[contact-form-7 id="123" ...]`) into Settings → Pierre Khoury.
+   ```
+   <p><label> Full Name*
+       [text* your-name] </label></p>
+
+   <p><label> Organization / Institution*
+       [text* your-organization] </label></p>
+
+   <p><label> Email*
+       [email* your-email] </label></p>
+
+   <p><label> Phone / WhatsApp*
+       [tel* your-phone] </label></p>
+
+   <p><label> Country / City*
+       [text* your-location] </label></p>
+
+   <p><label> Service of Interest*
+       [select* your-service "Gen Z Workplace Expertise" "Financial Consulting & Training" "Career Advisory & Lifelong Learning" "Blockchain Training" "Training Center Launch & Advisory" "Other / Not Sure Yet"] </label></p>
+
+   <p><label> Message*
+       [textarea* your-message] </label></p>
+
+   [submit "Get My Proposal"]
+   ```
+
+   Then switch to the "Mail" tab and update the message body so the
+   notification email includes the new fields, e.g. add
+   `Organization: [your-organization]`, `Phone/WhatsApp: [your-phone]`,
+   `Location: [your-location]`, `Service of interest: [your-service]`
+   alongside the existing `[your-name]` / `[your-email]` / `[your-message]`
+   tags, and Save.
+
+   Then copy the form's ID into Settings → Pierre Khoury: open the form,
+   and near the top of the edit screen there's a shortcode box like
+   `[contact-form-7 id="a1b2c3d" title="Contact form 1"]` — copy exactly
+   what's inside `id="..."`. On current CF7 versions this is a short
+   alphanumeric code rather than a plain number, which is why that
+   settings field takes text, not a number.
 5. Real photography is already wired in for the homepage hero (3 slides),
    the "Get to Know Pierre" / Background section, and the About page
    portrait — all currently pointed at images already hosted on

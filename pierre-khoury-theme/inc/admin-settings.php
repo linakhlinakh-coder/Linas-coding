@@ -23,7 +23,7 @@ add_action( 'admin_menu', 'pk_register_settings_page' );
 
 function pk_register_settings() {
 	register_setting( 'pk_settings', 'pk_whatsapp_number', array( 'sanitize_callback' => 'sanitize_text_field' ) );
-	register_setting( 'pk_settings', 'pk_contact_form_id', array( 'sanitize_callback' => 'absint' ) );
+	register_setting( 'pk_settings', 'pk_contact_form_id', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 }
 add_action( 'admin_init', 'pk_register_settings' );
 
@@ -65,10 +65,10 @@ function pk_render_settings_page() {
 				<tr>
 					<th scope="row"><label for="pk_contact_form_id"><?php esc_html_e( 'Contact Form 7 — Form ID', 'pierre-khoury' ); ?></label></th>
 					<td>
-						<input name="pk_contact_form_id" id="pk_contact_form_id" type="number" class="regular-text" value="<?php echo esc_attr( get_option( 'pk_contact_form_id', '' ) ); ?>" />
+						<input name="pk_contact_form_id" id="pk_contact_form_id" type="text" class="regular-text" value="<?php echo esc_attr( get_option( 'pk_contact_form_id', '' ) ); ?>" placeholder="e.g. a1b2c3d" />
 						<p class="description">
 							<?php if ( class_exists( 'WPCF7' ) ) : ?>
-								<?php esc_html_e( 'Create a form under Contact → Contact Forms with fields matching the brief (Full Name, Organization, Email, Phone/WhatsApp, Country/City, Service dropdown, Message), then paste its numeric ID here.', 'pierre-khoury' ); ?>
+								<?php esc_html_e( 'Create a form under Contact → Contact Forms with fields matching the brief (Full Name, Organization, Email, Phone/WhatsApp, Country/City, Service dropdown, Message). Open it, and near the top of the edit screen copy the value inside id="..." from the shortcode shown there (e.g. [contact-form-7 id="a1b2c3d" title="Contact form 1"]) — on current CF7 versions this is usually a short alphanumeric code, not a plain number. Paste exactly that into this field.', 'pierre-khoury' ); ?>
 							<?php else : ?>
 								<strong><?php esc_html_e( 'Contact Form 7 is not active yet.', 'pierre-khoury' ); ?></strong>
 								<?php esc_html_e( 'Install & activate it first, then create your form and enter its ID here.', 'pierre-khoury' ); ?>

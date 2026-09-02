@@ -273,9 +273,12 @@ function pk_shortcode_blog_teaser( $atts ) {
 add_shortcode( 'pk_blog_teaser', 'pk_shortcode_blog_teaser' );
 
 function pk_shortcode_contact_form() {
-	$form_id = get_option( 'pk_contact_form_id' );
+	// Current Contact Form 7 versions key forms by a short alphanumeric
+	// hash (e.g. "a1b2c3d"), not a plain numeric post ID, so this is
+	// stored and used as a string rather than run through absint().
+	$form_id = trim( (string) get_option( 'pk_contact_form_id' ) );
 	if ( $form_id && shortcode_exists( 'contact-form-7' ) ) {
-		return do_shortcode( sprintf( '[contact-form-7 id="%d"]', absint( $form_id ) ) );
+		return do_shortcode( sprintf( '[contact-form-7 id="%s"]', esc_attr( $form_id ) ) );
 	}
 	if ( current_user_can( 'edit_theme_options' ) ) {
 		return '<p><em>' . esc_html__( 'Contact Form 7 is not installed/configured yet. Install & activate it and this form will appear automatically.', 'pierre-khoury' ) . '</em></p>';
