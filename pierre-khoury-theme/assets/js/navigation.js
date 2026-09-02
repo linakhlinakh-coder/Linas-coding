@@ -6,6 +6,7 @@
 		var panel = document.querySelector( '.pk-mobile-panel' );
 
 		var slides = document.querySelectorAll( '.pk-hero__slide' );
+		var bgs = document.querySelectorAll( '.pk-hero__bg' );
 		var dots = document.querySelectorAll( '.pk-hero__dot' );
 		if ( slides.length > 1 ) {
 			var current = 0;
@@ -13,6 +14,9 @@
 				current = index;
 				slides.forEach( function ( slide, i ) {
 					slide.classList.toggle( 'is-active', i === index );
+				} );
+				bgs.forEach( function ( bg, i ) {
+					bg.classList.toggle( 'is-active', i === index );
 				} );
 				dots.forEach( function ( dot, i ) {
 					dot.classList.toggle( 'is-active', i === index );

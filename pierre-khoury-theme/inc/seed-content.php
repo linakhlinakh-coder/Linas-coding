@@ -33,7 +33,17 @@ function pk_section_page_header( $crumb, $title, $subtitle = '' ) {
 
 function pk_section_hero_home() {
 	$slides = pk_slides_data();
-	$html   = '<section class="pk-hero"><div class="pk-hero__inner"><div class="pk-hero__slides">';
+	$images = pk_hero_slide_images();
+
+	$html = '<section class="pk-hero"><div class="pk-hero__bgs">';
+	foreach ( $slides as $i => $s ) {
+		$active = ( 0 === $i ) ? ' is-active' : '';
+		$img    = isset( $images[ $i ] ) ? $images[ $i ] : '';
+		$html  .= '<div class="pk-hero__bg' . $active . '"' . ( $img ? ' style="background-image:url(\'' . esc_url( $img ) . '\')"' : '' ) . '></div>';
+	}
+	$html .= '</div><span class="pk-hero__gradient"></span>';
+
+	$html .= '<div class="pk-hero__inner"><div class="pk-hero__slides">';
 	foreach ( $slides as $i => $s ) {
 		$active = ( 0 === $i ) ? ' is-active' : '';
 		$target = 0 === $i ? 'services' : ( 1 === $i ? 'service:gen-z-workplace-expertise' : 'service:training-center-launch-advisory' );
@@ -66,7 +76,7 @@ function pk_section_stats() {
 
 function pk_section_positioning() {
 	$html  = '<section class="pk-section pk-split">';
-	$html .= '<div class="pk-media-placeholder"><span class="pk-media-placeholder__label">Photo / video, Pierre training</span></div>';
+	$html .= '<div class="pk-media-placeholder pk-media-photo" style="background-image:url(\'' . esc_url( pk_positioning_image() ) . '\')"></div>';
 	$html .= '<div>';
 	$html .= '<div class="pk-eyebrow-row"><span class="pk-rule"></span><p class="pk-eyebrow">Background</p></div>';
 	$html .= '<h2>Five disciplines, because institutions rarely face one problem at a time.</h2>';
@@ -238,7 +248,7 @@ function pk_section_about_bio() {
 	);
 
 	$html  = '<section class="pk-section pk-split pk-split--top">';
-	$html .= '<div class="pk-media-placeholder pk-media-placeholder--portrait"><span class="pk-media-placeholder__label">Photo, portrait</span></div>';
+	$html .= '<div class="pk-media-placeholder pk-media-placeholder--portrait pk-media-photo" style="background-image:url(\'' . esc_url( pk_about_portrait_image() ) . '\')"></div>';
 	$html .= '<div>';
 	$html .= '<p style="font-size:clamp(17px,1.65vw,21px);font-weight:500;line-height:1.5;letter-spacing:-0.02em;color:var(--pk-ink-2);">' . esc_html( $paras['lead'] ) . '</p>';
 	unset( $paras['lead'] );
@@ -248,6 +258,39 @@ function pk_section_about_bio() {
 	$html .= do_shortcode( '[pk_cta target="contact" label="Get My Proposal" style="solid"]' );
 	$html .= '</div></section>';
 	return pk_html_block( $html );
+}
+
+/* ---------------------------------------------------------------------
+ * Whole-page content builders — used both when a page is first created
+ * and by the "Rebuild" buttons in Settings → Pierre Khoury, so a page
+ * that already exists on a live site can be refreshed to match a content
+ * change here without losing its seeded structure.
+ * ------------------------------------------------------------------- */
+
+function pk_build_home_content() {
+	$html  = pk_section_hero_home();
+	$html .= pk_section_stats();
+	$html .= pk_section_positioning();
+	$html .= pk_section_pillar_grid();
+	$html .= pk_section_process();
+	$html .= pk_section_credentials( true );
+	$html .= pk_section_packages();
+	$html .= pk_section_blog_teaser();
+	$html .= pk_section_cta_band_full();
+	return $html;
+}
+
+function pk_build_about_content() {
+	$html  = pk_section_page_header( 'Home / About', 'Three decades bridging academia, business, and what comes next' );
+	$html .= pk_section_about_bio();
+	$html .= pk_section_credentials( false, true );
+	return $html;
+}
+
+function pk_build_track_content() {
+	$html  = pk_section_page_header( 'Home / Track Record', 'Trusted across academia, energy, and enterprise' );
+	$html .= pk_section_track_groups();
+	return $html;
 }
 
 /* ---------------------------------------------------------------------
@@ -375,15 +418,10 @@ function pk_run_content_seed() {
 	}
 
 	// 2. About.
-	$about_content  = pk_section_page_header( 'Home / About', 'Three decades bridging academia, business, and what comes next' );
-	$about_content .= pk_section_about_bio();
-	$about_content .= pk_section_credentials( false, true );
-	$ids['about']   = pk_seed_get_or_create_page( 'pk_page_about_id', 'About', 'about', $about_content );
+	$ids['about'] = pk_seed_get_or_create_page( 'pk_page_about_id', 'About', 'about', pk_build_about_content() );
 
 	// 3. Track Record.
-	$track_content  = pk_section_page_header( 'Home / Track Record', 'Trusted across academia, energy, and enterprise' );
-	$track_content .= pk_section_track_groups();
-	$ids['track']   = pk_seed_get_or_create_page( 'pk_page_track_id', 'Track Record', 'track-record', $track_content );
+	$ids['track'] = pk_seed_get_or_create_page( 'pk_page_track_id', 'Track Record', 'track-record', pk_build_track_content() );
 
 	// 4. Contact.
 	$contact_content  = pk_section_page_header( 'Home / Contact', "Let's build something your institution actually needs", "Tell us about your organization and what you're looking for, Gen Z strategy, financial training, career advisory, blockchain education, or training center support, and we'll follow up with a tailored proposal." );
@@ -400,16 +438,7 @@ function pk_run_content_seed() {
 	$ids['blog'] = pk_seed_get_or_create_page( 'pk_page_blog_id', 'Blog', 'blog', '' );
 
 	// 7. Home / front page.
-	$home_content  = pk_section_hero_home();
-	$home_content .= pk_section_stats();
-	$home_content .= pk_section_positioning();
-	$home_content .= pk_section_pillar_grid();
-	$home_content .= pk_section_process();
-	$home_content .= pk_section_credentials( true );
-	$home_content .= pk_section_packages();
-	$home_content .= pk_section_blog_teaser();
-	$home_content .= pk_section_cta_band_full();
-	$ids['home']   = pk_seed_get_or_create_page( 'pk_page_home_id', 'Home', 'home', $home_content );
+	$ids['home'] = pk_seed_get_or_create_page( 'pk_page_home_id', 'Home', 'home', pk_build_home_content() );
 
 	// Reading settings: static front page + dedicated posts page.
 	if ( $ids['home'] && $ids['blog'] ) {
@@ -439,3 +468,80 @@ function pk_maybe_run_seed_from_admin() {
 	}
 }
 add_action( 'admin_init', 'pk_maybe_run_seed_from_admin' );
+
+/* ---------------------------------------------------------------------
+ * Rebuild — overwrites one already-seeded page with fresh generated
+ * content. Unlike pk_seed_get_or_create_page() (which never touches a
+ * page that already exists) this is an explicit, opt-in action for when
+ * a content change here needs to reach a page that was already created
+ * on a live site — see the "Rebuild" buttons in Settings → Pierre Khoury.
+ * ------------------------------------------------------------------- */
+
+function pk_rebuildable_pages() {
+	return array(
+		'home'  => array( 'option' => 'pk_page_home_id', 'label' => __( 'Home', 'pierre-khoury' ), 'builder' => 'pk_build_home_content' ),
+		'about' => array( 'option' => 'pk_page_about_id', 'label' => __( 'About', 'pierre-khoury' ), 'builder' => 'pk_build_about_content' ),
+		'track' => array( 'option' => 'pk_page_track_id', 'label' => __( 'Track Record', 'pierre-khoury' ), 'builder' => 'pk_build_track_content' ),
+	);
+}
+
+function pk_rebuild_page( $key ) {
+	$pages = pk_rebuildable_pages();
+	if ( ! isset( $pages[ $key ] ) ) {
+		return false;
+	}
+	$page_id = get_option( $pages[ $key ]['option'] );
+	if ( ! $page_id || ! get_post( $page_id ) ) {
+		return false;
+	}
+
+	kses_remove_filters();
+	$content = call_user_func( $pages[ $key ]['builder'] );
+	kses_init_filters();
+
+	$updated = wp_update_post(
+		array(
+			'ID'           => $page_id,
+			'post_content' => $content,
+		),
+		true
+	);
+
+	return ! is_wp_error( $updated ) && $updated;
+}
+
+function pk_maybe_rebuild_page_from_admin() {
+	if ( ! is_admin() || ! current_user_can( 'manage_options' ) || ! isset( $_GET['pk_rebuild'] ) ) {
+		return;
+	}
+	$key = sanitize_key( wp_unslash( $_GET['pk_rebuild'] ) );
+	if ( ! check_admin_referer( 'pk_rebuild_' . $key ) ) {
+		return;
+	}
+	$ok = pk_rebuild_page( $key );
+	wp_safe_redirect( add_query_arg( 'pk_rebuilt', $ok ? $key : 'failed', remove_query_arg( array( 'pk_rebuild', '_wpnonce' ) ) ) );
+	exit;
+}
+add_action( 'admin_init', 'pk_maybe_rebuild_page_from_admin' );
+
+/* ---------------------------------------------------------------------
+ * Housekeeping — trashes WordPress's own default "Hello world!" sample
+ * post if it's still sitting there untouched, so the homepage's "From
+ * the Blog" teaser and the Blog page show real posts instead of it.
+ * Runs once automatically (no button needed); never touches a post
+ * whose title has been changed from the WordPress default.
+ * ------------------------------------------------------------------- */
+
+function pk_maybe_trash_default_post() {
+	if ( get_option( 'pk_default_post_trashed' ) ) {
+		return;
+	}
+
+	$post = get_post( 1 );
+	if ( $post && 'post' === $post->post_type && 'Hello world!' === $post->post_title ) {
+		wp_trash_post( 1 );
+	}
+
+	update_option( 'pk_default_post_trashed', 1 );
+}
+add_action( 'admin_init', 'pk_maybe_trash_default_post' );

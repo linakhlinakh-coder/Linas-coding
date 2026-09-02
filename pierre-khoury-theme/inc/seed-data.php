@@ -200,9 +200,29 @@ function pk_track_groups_data() {
 		array( 'label' => 'Government & International', 'items' => array( 'Government of Abu Dhabi (DED), Local Content Initiation Project', 'Nigerian Ministry of Foreign Affairs, Blockchain for Humanitarian Aid training', 'Central Bank of Lebanon', 'Central Bank of Kuwait' ) ),
 		array( 'label' => 'Blockchain Programs', 'items' => array( 'INSEAD, France, specialized training', 'Blockchain for Business Bootcamp, 93 completed entrepreneur projects' ) ),
 		array( 'label' => 'Media & Publishing', 'items' => array( 'Strategic File, Publisher', 'Aswak Al Arab, Opinion Editor', 'Hakika Bi Kam Dakika, Podcast host', 'MTV, Al Arabi TV & OSN, blockchain commentary' ) ),
-		array( 'label' => 'Certification Partners', 'items' => array( 'PearsonVUE', 'Microsoft', 'Certiport (via ITLS)' ) ),
 		array( 'label' => 'Associations', 'items' => array( 'Lebanese Economic Association, Board Member (former General Secretary)', 'ACBSP, Region Eight Secretary (2022)' ) ),
 	);
+}
+
+/**
+ * Real photography supplied for the homepage hero slider, the "Get to
+ * Know Pierre" positioning section, and the About page portrait — hosted
+ * on the live pierrekhoury.com site (already uploaded there).
+ */
+function pk_hero_slide_images() {
+	return array(
+		'https://pierrekhoury.com/wp-content/uploads/2026/08/1782206199346.jpg',
+		'https://pierrekhoury.com/wp-content/uploads/2026/08/1741284867033.jpg',
+		'https://pierrekhoury.com/wp-content/uploads/2026/08/shutterstock_1117902230.jpg',
+	);
+}
+
+function pk_positioning_image() {
+	return 'https://pierrekhoury.com/wp-content/uploads/2026/08/IMG-20260829-WA0115.jpg';
+}
+
+function pk_about_portrait_image() {
+	return 'https://pierrekhoury.com/wp-content/uploads/2026/09/images.jpg';
 }
 
 function pk_marquee_text() {

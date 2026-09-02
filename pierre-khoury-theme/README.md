@@ -62,9 +62,11 @@ colors and typography are ported 1:1 from that design.
 
    Copy the form's numeric ID (shown in the forms list, or in its shortcode
    `[contact-form-7 id="123" ...]`) into Settings → Pierre Khoury.
-5. Replace the gray placeholder photo blocks (hero, "Get to Know Pierre",
-   About portrait, blog thumbnails) with real photography — they're plain
-   image placeholders you can swap directly in the block editor.
+5. Real photography is already wired in for the homepage hero (3 slides),
+   the "Get to Know Pierre" / Background section, and the About page
+   portrait — all currently pointed at images already hosted on
+   pierrekhoury.com. Blog thumbnails remain plain placeholders; swap them
+   for real photography directly in the block editor as you add posts.
 6. At **Settings → Pierre Khoury**, under "Legacy blog archive", click
    **Import next batch of posts** repeatedly (40 posts per click, ~6 clicks
    for all 225) until it reports everything imported. Each click is safe to
@@ -86,6 +88,16 @@ colors and typography are ported 1:1 from that design.
   content setup" button. It only fills in anything missing — it never
   touches a page that already exists, so it's safe to click if a page or
   menu didn't get created (e.g. theme was active before this seeder shipped).
+- **Rebuilding a page:** because "Re-run content setup" deliberately never
+  touches a page that already exists, a content change made here to Home,
+  About or Track Record (new photos, a section update, etc.) won't reach a
+  site where those pages were already created just by uploading a new copy
+  of the theme. Settings → Pierre Khoury has "Rebuild Home / About / Track
+  Record" buttons for exactly that — each one overwrites that one page's
+  content with the latest generated version (`pk_build_home_content()` /
+  `pk_build_about_content()` / `pk_build_track_content()` in
+  `inc/seed-content.php`), so don't click it on a page you've since hand-edited
+  in the block editor, that edit would be lost.
 - **RTL/Arabic:** the CSS includes baseline RTL rules (`body.rtl`) per the
   original brief's requirement to anticipate an Arabic version. The imported
   legacy archive is itself almost entirely Arabic-language content, but it's
@@ -113,6 +125,21 @@ colors and typography are ported 1:1 from that design.
   import is complete, if you'd rather not ship it long-term.
 - **Newsletter signup** in the footer is a static form with no backend yet —
   wire it up to whatever email provider you choose (Mailchimp, Brevo, etc.).
+- **Logo:** the header and footer both use the round "pk." avatar mark from
+  the brand guidelines (`Pierre Khoury Logo.dc.html`, "Icon at size" — a
+  circular ink badge, white "pk" and an accent-colored period), rendered by
+  `pk_render_logo_block()` in `inc/blocks.php` rather than an image file, so
+  it stays crisp at any size and inherits theme colors automatically. The
+  footer variant is inverted (white circle, ink text) for contrast against
+  the dark footer background.
+- **Homepage hero:** each of the 3 slides has its own full-bleed background
+  photo (`pk_hero_slide_images()` in `inc/seed-data.php`) with a white→accent-blue
+  gradient layered above the image and below the text for legibility,
+  crossfading in sync with the slide text every ~6.5s (`assets/js/navigation.js`).
+- **Default "Hello world!" post:** if WordPress's own sample post is still
+  present untouched, it's trashed automatically the next time wp-admin
+  loads (`pk_maybe_trash_default_post()`), so it stops showing up ahead of
+  real content in the "From the Blog" teaser and the Blog page.
 - Section markup for repeated components (hero, pillar grid, stats,
   credentials, packages, etc.) lives in `inc/seed-content.php` as PHP
   builder functions fed by the data in `inc/seed-data.php` — the same

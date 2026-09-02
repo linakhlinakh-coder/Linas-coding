@@ -80,10 +80,40 @@ function pk_render_settings_page() {
 			<?php submit_button(); ?>
 		</form>
 
+		<?php if ( isset( $_GET['pk_rebuilt'] ) ) : ?>
+			<div class="notice <?php echo ( 'failed' === $_GET['pk_rebuilt'] ) ? 'notice-error' : 'notice-success'; ?>">
+				<p>
+					<?php
+					if ( 'failed' === $_GET['pk_rebuilt'] ) {
+						esc_html_e( "Couldn't rebuild that page — it may not have been created yet. Try Re-run content setup first.", 'pierre-khoury' );
+					} else {
+						esc_html_e( 'Page rebuilt with the latest content.', 'pierre-khoury' );
+					}
+					?>
+				</p>
+			</div>
+		<?php endif; ?>
+
 		<hr />
 		<h2><?php esc_html_e( 'Content', 'pierre-khoury' ); ?></h2>
 		<p><?php esc_html_e( 'The theme creates the Home, About, Services, 5 service pages, Track Record, Blog and Contact pages automatically the first time it is activated, using the approved copy. If a page seems to be missing, use the button below to fill in anything that did not get created — pages you already edited will not be touched.', 'pierre-khoury' ); ?></p>
 		<p><a href="<?php echo esc_url( $reseed_url ); ?>" class="button"><?php esc_html_e( 'Re-run content setup', 'pierre-khoury' ); ?></a></p>
+
+		<h3><?php esc_html_e( 'Rebuild a page', 'pierre-khoury' ); ?></h3>
+		<p><?php esc_html_e( "When a content change is made to Home, About or Track Record in the theme itself (new photos, an updated section, etc.), the page it belongs to needs to be rebuilt for that change to show up here — \"Re-run content setup\" above only fills in pages that don't exist yet. Rebuilding OVERWRITES that page's current content with the latest version, so don't use it on a page you've since edited by hand in the block editor.", 'pierre-khoury' ); ?></p>
+		<p>
+			<?php foreach ( pk_rebuildable_pages() as $key => $page ) : ?>
+				<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'pk_rebuild', $key ), 'pk_rebuild_' . $key ) ); ?>" class="button" style="margin-right:8px;">
+					<?php
+					printf(
+						/* translators: %s: page name, e.g. "Home" */
+						esc_html__( 'Rebuild %s', 'pierre-khoury' ),
+						esc_html( $page['label'] )
+					);
+					?>
+				</a>
+			<?php endforeach; ?>
+		</p>
 
 		<hr />
 		<h2><?php esc_html_e( 'Legacy blog archive', 'pierre-khoury' ); ?></h2>
