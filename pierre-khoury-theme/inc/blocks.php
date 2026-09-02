@@ -260,7 +260,7 @@ function pk_shortcode_blog_teaser( $atts ) {
 		$out .= sprintf(
 			'<a class="pk-post-card" href="%1$s">%2$s<span class="pk-post-card__body"><span class="pk-post-card__cat">%3$s</span><span class="pk-post-card__title">%4$s</span><span class="pk-post-card__meta">%5$s</span></span></a>',
 			esc_url( get_permalink() ),
-			has_post_thumbnail() ? get_the_post_thumbnail( null, 'medium_large', array( 'class' => 'pk-post-card__thumb' ) ) : '<span class="pk-post-card__thumb"></span>',
+			has_post_thumbnail() ? get_the_post_thumbnail( null, 'post-thumbnail', array( 'class' => 'pk-post-card__thumb' ) ) : '<span class="pk-post-card__thumb"></span>',
 			esc_html( $cat ),
 			esc_html( get_the_title() ),
 			esc_html( get_the_date() ) . ' · Read More →'

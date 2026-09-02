@@ -202,6 +202,7 @@ a.pk-book-btn {
 	color: #fff !important;
 	display: inline-flex;
 	align-items: center;
+	margin-top: 0;
 }
 .pk-book-btn:hover,
 a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !important; }
@@ -277,6 +278,11 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 	align-items: center;
 	justify-content: center;
 	text-decoration: none;
+	/* Default breathing room above a button that follows text/a grid with
+	   no gap of its own; zeroed out inside containers that already space
+	   their children with `gap` (see the .pk-btn { margin-top: 0 } rules
+	   further down), so it never double-stacks with an existing gap. */
+	margin-top: 22px;
 }
 .pk-btn:hover { background: var(--pk-navy); color: #fff; }
 .pk-btn--navy { background: var(--pk-navy); }
@@ -344,6 +350,7 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 	display: flex;
 	align-items: flex-end;
 	overflow: hidden;
+	margin-top: -30px;
 }
 .pk-hero__bgs { position: absolute; inset: 0; }
 .pk-hero__bg {
@@ -405,6 +412,7 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 	max-width: 46ch;
 }
 .pk-hero__actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.pk-hero__actions .pk-btn { margin-top: 0; }
 .pk-hero__dots { position: relative; display: flex; gap: 8px; padding-top: clamp(4px, 0.8vw, 12px); }
 .pk-hero__dot { border: 0; cursor: pointer; padding: 0; width: 14px; height: 4px; border-radius: 999px; background: oklch(0.82 0.012 85); }
 .pk-hero__dot.is-active { width: 34px; background: var(--pk-accent); }
@@ -449,6 +457,13 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 .pk-split h2 { margin: 0; max-width: 24ch; }
 .pk-split p { margin: 0; font-size: clamp(14.5px, 1.25vw, 16.5px); line-height: 1.75; color: var(--pk-gray-3); max-width: 56ch; }
 .pk-split .pk-btn { align-self: flex-start; }
+.pk-text-col {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: clamp(18px, 2.2vw, 28px);
+}
+.pk-text-col .pk-btn { align-self: flex-start; margin-top: 0; }
 
 /* ---------- pillar grid ---------- */
 .pk-pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(14px, 1.6vw, 22px); }
@@ -511,7 +526,7 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 .pk-package__items li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 13.5px; opacity: 0.88; line-height: 1.55; }
 .pk-package__items li::before { content: ''; width: 5px; height: 5px; border-radius: 999px; background: var(--pk-accent); margin-top: 7px; }
 .pk-package--dark .pk-package__items li::before { background: var(--pk-accent-light-2); }
-.pk-package .pk-btn { background: var(--pk-navy); color: #fff; font-size: 11.5px; padding: 16px 24px; min-height: 50px; }
+.pk-package .pk-btn { background: var(--pk-navy); color: #fff; font-size: 11.5px; padding: 16px 24px; min-height: 50px; margin-top: 0; }
 .pk-package--dark .pk-btn { background: var(--pk-accent-light); }
 .pk-package-note { font-family: ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.06em; color: var(--pk-gray-6); margin-top: clamp(26px, 3vw, 42px); }
 
@@ -530,12 +545,20 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 }
 .pk-post-card:hover { border-color: var(--pk-accent); }
 .pk-post-card__thumb {
-	aspect-ratio: 16 / 10;
+	aspect-ratio: 1000 / 600;
 	width: 100%;
 	display: block;
+	margin: 0;
+	overflow: hidden;
 	background-size: cover;
 	background-position: center;
 	background-image: repeating-linear-gradient(135deg, oklch(0.89 0.012 85) 0 2px, oklch(0.95 0.008 85) 2px 10px);
+}
+img.pk-post-card__thumb,
+.pk-post-card__thumb img {
+	background-image: none;
+	object-fit: cover;
+	height: 100%;
 }
 .pk-post-card__body { padding: clamp(20px, 2.2vw, 28px); display: flex; flex-direction: column; gap: 12px; }
 .pk-post-card__cat { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pk-accent); }
@@ -571,6 +594,7 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 .pk-cta-band h2 { margin: 0; font-size: clamp(28px, 4vw, 56px); font-weight: 700; line-height: 1.04; letter-spacing: -0.04em; max-width: 22ch; color: #fff; }
 .pk-cta-band p { margin: 0; font-size: clamp(15px, 1.35vw, 17.5px); line-height: 1.6; color: var(--pk-accent-on-navy-4); max-width: 50ch; }
 .pk-cta-band__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.pk-cta-band__actions .pk-btn { margin-top: 0; }
 
 .pk-cta-band--split {
 	background: var(--pk-accent);
@@ -583,6 +607,7 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 	justify-content: space-between;
 }
 .pk-cta-band--split h2 { margin: 0; font-size: clamp(24px, 3.2vw, 42px); font-weight: 700; line-height: 1.08; letter-spacing: -0.035em; max-width: 24ch; color: #fff; }
+.pk-cta-band--split .pk-btn { margin-top: 0; }
 
 /* ---------- marquee ---------- */
 .pk-marquee { background: var(--pk-accent); overflow: hidden; padding: 14px 0; display: flex; }
@@ -633,8 +658,15 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 .pk-footer-form button:hover { background: #fff; color: var(--pk-ink); }
 .pk-footer-bottom { border-top: 1px solid var(--pk-navy-border-3); padding-top: 18px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; font-size: 11px; letter-spacing: 0.08em; color: var(--pk-gray-7); }
 
+@media (max-width: 781px) {
+	.pk-footer-grid { justify-items: center; text-align: center; }
+	.pk-footer-col { align-items: center; }
+	.pk-footer-form { width: 100%; max-width: 320px; }
+	.pk-footer-bottom { justify-content: center; text-align: center; }
+}
+
 /* ---------- interior page header band ---------- */
-.pk-page-header { background: var(--pk-navy); color: #fff; padding: clamp(40px, 5vw, 80px) var(--pk-gutter); display: flex; flex-direction: column; gap: 16px; }
+.pk-page-header { background: var(--pk-navy); color: #fff; padding: clamp(40px, 5vw, 80px) var(--pk-gutter); display: flex; flex-direction: column; gap: 16px; margin-top: -30px; }
 .pk-page-header__crumb { font-size: 10.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pk-gray-on-navy-1); }
 .pk-page-header h1 { margin: 0; font-size: clamp(31px, 4.3vw, 58px); font-weight: 700; line-height: 1.03; letter-spacing: -0.04em; max-width: 22ch; color: #fff; }
 .pk-page-header p { margin: 0; font-size: clamp(15px, 1.35vw, 17.5px); line-height: 1.6; color: var(--pk-gray-on-navy-4); max-width: 56ch; }
@@ -690,6 +722,7 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 .pk-field select:focus,
 .pk-field textarea:focus { outline: none; border-color: var(--pk-accent); }
 .pk-side-card { border: 1px solid var(--pk-border); border-radius: 4px; padding: clamp(24px, 2.8vw, 36px); display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.pk-side-card .pk-btn { margin-top: 0; }
 .pk-side-card__label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pk-accent); }
 .pk-side-card__title { font-size: clamp(18px, 1.8vw, 23px); font-weight: 700; line-height: 1.2; letter-spacing: -0.03em; }
 .pk-side-card__link { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
@@ -713,6 +746,7 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 	color: var(--pk-ink-2);
 }
 .pk-related-service { background: var(--pk-accent); color: #fff; border-radius: 4px; padding: clamp(24px, 2.8vw, 36px); display: flex; flex-direction: column; gap: 16px; }
+.pk-related-service .pk-btn { margin-top: 0; }
 .pk-related-service__label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pk-accent-on-navy-3); }
 .pk-related-service__title { font-size: clamp(20px, 2vw, 26px); font-weight: 700; line-height: 1.12; letter-spacing: -0.03em; }
 .pk-post-meta-row { display: flex; flex-wrap: wrap; gap: 22px; font-size: 10.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pk-gray-on-navy-1); border-top: 1px solid var(--pk-navy-border-3); padding-top: 16px; }
@@ -725,6 +759,7 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 	font-size: 10.5px;
 	color: var(--pk-accent-light-3);
 	align-self: flex-start;
+	margin-top: 0;
 }
 .pk-btn.pk-back-link:hover { background: transparent; color: #fff; }
 

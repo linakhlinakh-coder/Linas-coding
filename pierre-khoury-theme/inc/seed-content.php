@@ -77,7 +77,7 @@ function pk_section_stats() {
 function pk_section_positioning() {
 	$html  = '<section class="pk-section pk-split">';
 	$html .= '<div class="pk-media-placeholder pk-media-photo" style="background-image:url(\'' . esc_url( pk_positioning_image() ) . '\')"></div>';
-	$html .= '<div>';
+	$html .= '<div class="pk-text-col">';
 	$html .= '<div class="pk-eyebrow-row"><span class="pk-rule"></span><p class="pk-eyebrow">Background</p></div>';
 	$html .= '<h2>Five disciplines, because institutions rarely face one problem at a time.</h2>';
 	$html .= '<p>Gen Z friction, financial blind spots, career planning, blockchain and training capacity tend to arrive together. Pierre Khoury works across all five because he has spent three decades moving between them: researching at central banks, consulting for businesses and ministries, teaching finance and blockchain at graduate level, and building training programmes for institutions across the region. The breadth comes from the work, not from a single title.</p>';
@@ -249,7 +249,7 @@ function pk_section_about_bio() {
 
 	$html  = '<section class="pk-section pk-split pk-split--top">';
 	$html .= '<div class="pk-media-placeholder pk-media-placeholder--portrait pk-media-photo" style="background-image:url(\'' . esc_url( pk_about_portrait_image() ) . '\')"></div>';
-	$html .= '<div>';
+	$html .= '<div class="pk-text-col">';
 	$html .= '<p style="font-size:clamp(17px,1.65vw,21px);font-weight:500;line-height:1.5;letter-spacing:-0.02em;color:var(--pk-ink-2);">' . esc_html( $paras['lead'] ) . '</p>';
 	unset( $paras['lead'] );
 	foreach ( $paras as $p ) {

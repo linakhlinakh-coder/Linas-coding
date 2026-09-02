@@ -40,7 +40,7 @@ function pk_setup() {
 		)
 	);
 
-	set_post_thumbnail_size( 1200, 750, true );
+	set_post_thumbnail_size( 1000, 600, true );
 }
 add_action( 'after_setup_theme', 'pk_setup' );
 
