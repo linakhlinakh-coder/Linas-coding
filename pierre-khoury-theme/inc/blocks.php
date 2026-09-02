@@ -103,14 +103,14 @@ function pk_render_nav_menu_block( $attributes ) {
 }
 
 /**
- * Round "pk." avatar mark — the icon variant from the brand guidelines
- * (Pierre Khoury Logo.dc.html, "Icon at size" section): a circular ink
- * badge with the lowercase "pk" set in white and the accent-colored period.
+ * Full lockup from the brand guidelines (Pierre Khoury Logo.dc.html,
+ * "Layout variants" — Horizontal, for nav/letterhead): the round "pk."
+ * icon mark next to the "pierre khoury." wordmark.
  */
 function pk_render_logo_block( $attributes ) {
 	$class = isset( $attributes['className'] ) ? sanitize_html_class( $attributes['className'] ) : 'pk-logo';
 	return sprintf(
-		'<a href="%1$s" class="%2$s" aria-label="%3$s"><span class="pk-logo-badge">pk<span class="pk-logo-dot">.</span></span></a>',
+		'<a href="%1$s" class="%2$s" aria-label="%3$s"><span class="pk-logo-badge">pk<span class="pk-logo-dot">.</span></span><span class="pk-logo-word">pierre khoury<span class="pk-logo-dot">.</span></span></a>',
 		esc_url( home_url( '/' ) ),
 		esc_attr( $class ),
 		esc_attr__( 'Pierre Khoury — home', 'pierre-khoury' )
