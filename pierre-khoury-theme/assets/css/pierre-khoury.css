@@ -72,6 +72,12 @@ body {
 a { color: var(--pk-accent); text-decoration: none; }
 a:hover { color: var(--pk-accent-hover); }
 
+/* Belt-and-suspenders alongside theme.json's styles.spacing.blockGap: "0" —
+   removes WordPress's default vertical gap between the header template
+   part, <main>, and the footer template part, so the hero/page-header
+   sits flush under the sticky header on every page. */
+.wp-site-blocks > * + * { margin-top: 0; }
+
 @keyframes pk-marquee {
 	from { transform: translateX(0); }
 	to { transform: translateX(-50%); }
@@ -350,7 +356,6 @@ a.pk-book-btn:hover { background: var(--pk-navy) !important; color: #fff !import
 	display: flex;
 	align-items: flex-end;
 	overflow: hidden;
-	margin-top: -30px;
 }
 .pk-hero__bgs { position: absolute; inset: 0; }
 .pk-hero__bg {
@@ -666,7 +671,7 @@ img.pk-post-card__thumb,
 }
 
 /* ---------- interior page header band ---------- */
-.pk-page-header { background: var(--pk-navy); color: #fff; padding: clamp(40px, 5vw, 80px) var(--pk-gutter); display: flex; flex-direction: column; gap: 16px; margin-top: -30px; }
+.pk-page-header { background: var(--pk-navy); color: #fff; padding: clamp(40px, 5vw, 80px) var(--pk-gutter); display: flex; flex-direction: column; gap: 16px; }
 .pk-page-header__crumb { font-size: 10.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pk-gray-on-navy-1); }
 .pk-page-header h1 { margin: 0; font-size: clamp(31px, 4.3vw, 58px); font-weight: 700; line-height: 1.03; letter-spacing: -0.04em; max-width: 22ch; color: #fff; }
 .pk-page-header p { margin: 0; font-size: clamp(15px, 1.35vw, 17.5px); line-height: 1.6; color: var(--pk-gray-on-navy-4); max-width: 56ch; }

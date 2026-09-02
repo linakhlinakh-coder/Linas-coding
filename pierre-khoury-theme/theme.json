@@ -55,6 +55,9 @@
 		}
 	},
 	"styles": {
+		"spacing": {
+			"blockGap": "0"
+		},
 		"color": {
 			"background": "var(--wp--preset--color--page-bg)",
 			"text": "var(--wp--preset--color--ink)"
